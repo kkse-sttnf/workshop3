@@ -3,26 +3,33 @@ import ListItem from "./listItem";
 import { createPublicClient, createWalletClient, custom, http } from 'viem';
 import { sepolia } from "viem/chains";
 
+// Contract ABI
 const abi = [];
+
+// Contract Address 
 const contractAddress = '';
 
 function App() {
+
   const [task, setTask] = useState('');
   const [listItems, setListItems] = useState([]);
   const [connected, setConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Create client Provider
   const client = createWalletClient({
     chain: sepolia,
     transport: custom(window.ethereum),
   });
 
+  // Create public client Provider
   const publicClient = createPublicClient({
     chain: sepolia,
     transport: http('https://sepolia.drpc.org'),
   });
 
+  // function to map task using id
   const getTask = async (id) => {
     try {
       setLoading(true);
@@ -44,6 +51,7 @@ function App() {
     }
   }
 
+  // function connect to wallet
   const handleConnect = async () => {
     setLoading(true);
     try {
@@ -57,6 +65,7 @@ function App() {
     }
   };
 
+  // function to get all task
   const getAllTask = async () => {
     try {
       setLoading(true);
@@ -85,7 +94,7 @@ function App() {
     getAllTask();
   }, []);
 
-
+  // add task function
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -107,7 +116,6 @@ function App() {
       alert(`Task submitted! Tx Hash: ${hash}`);
       getAllTask();
       setTask('');
-
     } catch (err) {
       console.error("Error adding task:", err);
       alert("Failed to add task.");
@@ -116,6 +124,7 @@ function App() {
     }
   };
 
+  // compliting task function
   const handleDone = async (id) => {
     try {
       setLoading(true);
@@ -130,7 +139,7 @@ function App() {
 
       await publicClient.waitForTransactionReceipt({ hash });
 
-      alert(`Task submitted! Tx Hash: ${hash}`);
+      alert(`Task updated! Tx Hash: ${hash}`);
       getAllTask();
     } catch (err) {
       console.error("Error complete task:", err);
