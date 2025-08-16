@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@base-org/account": "^2.0.1",
+    "@coinbase/onchainkit": "^0.38.19",
     "@tailwindcss/vite": "^4.1.11",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-icons": "^5.5.0",
     "tailwindcss": "^4.1.11",
-    "viem": "^2.33.3"
+    "viem": "^2.33.3",
+    "wagmi": "^2.16.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
